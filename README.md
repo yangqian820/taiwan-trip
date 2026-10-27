@@ -1,17 +1,13 @@
-# 台湾旅行网页 V2
+# 台湾旅行网页 V3 · Supabase 云端版
 
-打开 index.html 即可本地使用；也可将本文件夹发布到 GitHub Pages / Netlify / Cloudflare Pages。
+将 `index.html` 与 `data.json` 上传到 GitHub 仓库根目录；GitHub Pages 发布。
 
-## 已实现
-- 9天详细行程，逐项修改时间、描述、备注、订票状态
-- 每日嵌入 Google Maps 地图；每项一键打开 Google Maps 搜索
-- 本机 localStorage 自动保存；最近100次修改快照、恢复、JSON 导入导出
-- 可选 Supabase 云端同步接入界面
-
-## 云端同步的安全限制（重要）
-当前示例仅提供客户端接入流程，**没有部署数据库、没有配置用户登录或 RLS**。请不要把 `trip_documents` 表设为匿名可写并公开部署，这会允许未经授权修改数据。
-
-正式上线推荐：Supabase Auth 邮箱登录 + 仅允许登录用户访问自己行程的 RLS 策略 + GitHub Pages 部署。需在 Supabase 控制台建立表和身份验证策略，完成后才可跨设备同步。不要在前端使用 service_role key。
-
-## 资料来源
-原始 docx 的日程表，少量风险注释另加；路线时间未全部实时验证。
+- 公共行程保存在 Supabase `trip_itinerary` 的 `id=main` 行；访客只读。
+- 管理员通过 Supabase Auth 邮箱密码登录，UID 与数据库 RLS 匹配。
+- 管理员首次登录后，在「账号 / 备份」点击「首次导入」，只允许空表导入。
+- 修改触发 `trip_history` 的数据库记录，历史恢复会生成新记录。
+- 行程及备注是公开数据，请勿填写订单号或个人隐私。
+- Google Maps 嵌入仅显示当日酒店位置；逐站可点击打开地图搜索。
+- 不要将 Supabase secret/service_role key 放进网页。
+- 之前版本的本地浏览器修改不会自动迁移；首次导入使用内嵌原始行程。
+- 原始路线尚有未核实交通和景点时间，不能当作实时道路开放证明。
