@@ -36,7 +36,7 @@ function renderGuide(){
 }
 function renderBookings(){
  let a=[];days.forEach((d,i)=>d.stops.forEach(s=>{if(s.status!=='无需预订')a.push({d,i,s})}));
- $('content').innerHTML=`<section class="panel"><h2>待办与订票</h2><p class="meta">酒店预订状态以实际订单为准；不公开私人订单信息。</p><div class="warn">台铁、高铁车票请按官方开售时间核实；租车异地还车需确认。</div>${a.map(x=>`<div class="history"><b>D${x.i+1} ${esc(x.d.date)}</b> · ${esc(x.s.title)}<p class="status">${esc(x.s.status)}</p></div>`).join('')}</section>`;
+ $('content').innerHTML=`<section class="panel"><h2>待办与订票</h2><p class="meta">酒店预订状态以实际订单为准；不公开私人订单信息。</p><div class="warn">台铁、高铁车票请按官方开售时间核实；租车异地还车需确认。</div>${GUIDE.bookings.map(x=>`<div class="history"><b>${esc(x[0])}</b><p class="small">${esc(x[1])}</p><p class="small">办理渠道：${esc(x[2])}</p><span class="status">${esc(x[3])}</span></div>`).join('')}${a.map(x=>`<div class="history"><b>D${x.i+1} ${esc(x.d.date)}</b> · ${esc(x.s.title)}<p class="status">${esc(x.s.status)}</p></div>`).join('')}</section>`;
 }
 $('overviewBtn').onclick=()=>{view='overview';render()};
 $('bookingBtn').onclick=()=>{view='booking';render()};
